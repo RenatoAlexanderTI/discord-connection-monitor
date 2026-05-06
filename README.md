@@ -9,14 +9,14 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - **Auto-detection**: Automatically detects when Discord is running
 - **Real-time monitoring**: Checks internet connection every 2 seconds via ping to Google DNS (8.8.8.8) and Cloudflare (1.1.1.1)
 - **Triple alert system**:
-  - 🔊 **Voice alert** (Text-to-Speech in Spanish)
-  - 🔔 **System sound** notification
-  - 💬 **Windows tray** balloon notification
+  - **Voice alert** (Text-to-Speech in Spanish)
+  - **System sound** notification
+  - **Windows tray** balloon notification
 - **Always-on-top overlay**: Small, draggable window that stays visible
 - **Secondary monitor support**: Automatically positions itself on your second screen
 - **Auto-start**: Option to launch with Windows
@@ -24,7 +24,7 @@
 
 ---
 
-## 📥 Download & Installation
+## Download & Installation
 
 ### Option 1: MSI Installer (Recommended)
 
@@ -42,7 +42,7 @@
 
 ---
 
-## 🎮 Usage
+## Usage
 
 ### First Launch
 
@@ -80,7 +80,7 @@ If Discord is running and your internet drops, you'll get:
 
 ---
 
-## 🛠️ Build from Source
+## Build from Source
 
 ### Requirements
 
@@ -112,7 +112,7 @@ If Discord is running and your internet drops, you'll get:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 discord-connection-monitor/
@@ -129,7 +129,7 @@ discord-connection-monitor/
 
 ---
 
-## 🔧 Technical Details
+## Technical Details
 
 | Component | Details |
 |-----------|---------|
@@ -144,7 +144,7 @@ discord-connection-monitor/
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 **Q: Does this require administrator privileges?**  
 A: No. It installs in your user AppData folder and uses user-level registry keys.
@@ -163,7 +163,7 @@ A: Use Windows Settings → Apps → Discord Monitor → Uninstall, or run the M
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **The window doesn't appear**
 - Check the system tray (bottom-right) for the app icon
@@ -178,19 +178,19 @@ A: Use Windows Settings → Apps → Discord Monitor → Uninstall, or run the M
 
 ---
 
-## 📝 License
+## License
 
 MIT License - feel free to modify and distribute.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
 
 ---
 
-## 💡 Roadmap
+## Roadmap
 
 - [ ] English language support
 - [ ] Customizable alert sounds
@@ -201,7 +201,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-## 📧 Support
+## Support
 
 If you encounter any issues, please [open an issue](../../issues) on GitHub.
 
