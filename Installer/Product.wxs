@@ -48,7 +48,6 @@
                   Name="Discord Monitor"
                   Directory="ApplicationProgramsFolder"
                   Advertise="no"
-                  Icon="AppIcon"
                   IconIndex="0" />
 
         <!-- Inicio automático con Windows (HKCU, no requiere admin) -->
