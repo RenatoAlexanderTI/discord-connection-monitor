@@ -11,22 +11,16 @@
     <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perUser"
-             Description="Monitorea tu conexión durante llamadas de Discord"
-             Comments="Overlay liviano para Windows" />
+             Description="Monitorea tu conexion durante llamadas de Discord" />
 
-    <MajorUpgrade DowngradeErrorMessage="Ya está instalada una versión más nueva de Discord Monitor." />
+    <MajorUpgrade DowngradeErrorMessage="Ya esta instalada una version mas nueva." />
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- ── Iconos y UI del installer ───────────────────────────────── -->
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
-
-    <!-- ── Propiedades ─────────────────────────────────────────────── -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
-    <Property Id="AUTOSTART" Value="1" />
 
-    <!-- ── Estructura de directorios ───────────────────────────────── -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="LocalAppDataFolder">
         <Directory Id="INSTALLFOLDER" Name="DiscordMonitor" />
@@ -36,53 +30,85 @@
       </Directory>
     </Directory>
 
-    <!-- ── Componentes ─────────────────────────────────────────────── -->
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="MainExecutable" Guid="B1C2D3E4-F5A6-7890-BCDE-F12345678901">
-        <File Id="DiscordMonitorEXE"
-              Source="..\publish\DiscordMonitor.exe"
-              KeyPath="yes" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\DiscordMonitor"
+                       Name="installed"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
 
-        <!-- Acceso directo en Inicio -->
-        <Shortcut Id="StartMenuShortcut"
-                  Name="Discord Monitor"
-                  Directory="ApplicationProgramsFolder"
-                  Advertise="no"
-                  IconIndex="0" />
-
-        <!-- Inicio automático con Windows (HKCU, no requiere admin) -->
         <RegistryValue Root="HKCU"
                        Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
                        Name="DiscordMonitor"
                        Type="string"
-                       Value="[INSTALLFOLDER]DiscordMonitor.exe"
-                       KeyPath="no" />
+                       Value="[INSTALLFOLDER]DiscordMonitor.exe" />
 
-        <!-- Clave de desinstalación -->
-        <RemoveFolder Id="CleanupStartMenu"
-                      Directory="ApplicationProgramsFolder"
-                      On="uninstall" />
+        <RemoveFolder Id="RemoveInstallFolder" On="uninstall" />
+        <RemoveFolder Id="CleanupStartMenu" Directory="ApplicationProgramsFolder" On="uninstall" />
+      </Component>
+
+      <Component Id="AppFiles" Guid="D3E4F5A6-B7C8-9012-DEF0-234567890123">
+        <RegistryValue Root="HKCU"
+                       Key="Software\DiscordMonitor"
+                       Name="files"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+        <File Id="DiscordMonitorEXE" Source="..\publish\DiscordMonitor.exe" />
+        <File Id="DiscordMonitorDLL" Source="..\publish\DiscordMonitor.dll" />
+        <File Id="DiscordMonitorDeps" Source="..\publish\DiscordMonitor.deps.json" />
+        <File Id="DiscordMonitorConfig" Source="..\publish\DiscordMonitor.runtimeconfig.json" />
+        <File Id="SystemSpeech" Source="..\publish\System.Speech.dll" />
+      </Component>
+
+      <Directory Id="RuntimesFolder" Name="runtimes">
+        <Directory Id="WinFolder" Name="win">
+          <Directory Id="LibFolder" Name="lib">
+            <Directory Id="Net80Folder" Name="net8.0">
+              <Component Id="RuntimeSpeech" Guid="E4F5A6B7-C8D9-0123-EF01-345678901234">
+                <RegistryValue Root="HKCU"
+                               Key="Software\DiscordMonitor"
+                               Name="runtime"
+                               Type="integer"
+                               Value="1"
+                               KeyPath="yes" />
+                <File Id="SystemSpeechRuntime" Source="..\publish\runtimes\win\lib\net8.0\System.Speech.dll" />
+                <RemoveFolder Id="RemoveNet80" Directory="Net80Folder" On="uninstall" />
+                <RemoveFolder Id="RemoveLib" Directory="LibFolder" On="uninstall" />
+                <RemoveFolder Id="RemoveWin" Directory="WinFolder" On="uninstall" />
+                <RemoveFolder Id="RemoveRuntimes" Directory="RuntimesFolder" On="uninstall" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Component Id="StartMenuShortcut" Guid="C2D3E4F5-A6B7-8901-CDEF-123456789012">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="Discord Monitor"
+                  Directory="ApplicationProgramsFolder"
+                  Target="[INSTALLFOLDER]DiscordMonitor.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+
+        <RegistryValue Root="HKCU"
+                       Key="Software\DiscordMonitor"
+                       Name="shortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+
+        <RemoveFolder Id="RemoveMenuFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
       </Component>
     </DirectoryRef>
 
-    <!-- ── Feature ─────────────────────────────────────────────────── -->
     <Feature Id="ProductFeature" Title="Discord Monitor" Level="1">
       <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="AppFiles" />
+      <ComponentRef Id="RuntimeSpeech" />
+      <ComponentRef Id="StartMenuShortcut" />
     </Feature>
-
-    <!-- ── Acción: pedir permiso de inicio automático al terminar ──── -->
-    <CustomAction Id="LaunchAfterInstall"
-                  FileKey="DiscordMonitorEXE"
-                  ExeCommand=""
-                  Execute="immediate"
-                  Impersonate="yes"
-                  Return="asyncNoWait" />
-
-    <InstallExecuteSequence>
-      <Custom Action="LaunchAfterInstall" After="InstallFinalize">
-        NOT Installed AND NOT REMOVE
-      </Custom>
-    </InstallExecuteSequence>
 
   </Product>
 </Wix>
