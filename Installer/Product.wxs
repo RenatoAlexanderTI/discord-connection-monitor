@@ -71,9 +71,6 @@
       <ComponentRef Id="MainExecutable" />
     </Feature>
 
-    <!-- ── Icono ───────────────────────────────────────────────────── -->
-    <Icon Id="AppIcon" SourceFile="..\..\DiscordMonitor\icon.ico" />
-
     <!-- ── Acción: pedir permiso de inicio automático al terminar ──── -->
     <CustomAction Id="LaunchAfterInstall"
                   FileKey="DiscordMonitorEXE"
