@@ -91,7 +91,7 @@ If Discord is running and your internet drops, you'll get:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/discord-connection-monitor.git
+   git clone https://github.com/RenatoAlexanderTI/discord-connection-monitor.git
    cd discord-connection-monitor
    ```
 
