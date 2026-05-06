@@ -74,6 +74,7 @@ namespace DiscordMonitor
             this.FormBorderStyle = FormBorderStyle.None;
             this.BackColor       = BG_DARK;
             this.StartPosition   = FormStartPosition.Manual;
+            this.FormBorderStyle = FormBorderStyle.SizeableToolWindow;
             this.ShowInTaskbar   = false;
             this.Opacity         = 0.93;
             this.MouseDown      += Form_MouseDown;
